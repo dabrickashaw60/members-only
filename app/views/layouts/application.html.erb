@@ -11,6 +11,35 @@
   </head>
 
   <body>
+<!--    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+ -->
+     <div class="flash-messages">
+      <% flash.each do |name, message| %>
+        <div class="<%= name %>"><%= message %></div>
+      <% end %>
+    </div>
+
+    <% if user_signed_in? %>
+      <div>
+        <%= link_to 'New Post', new_post_path %>
+        <%= link_to 'Posts', posts_path%>
+        <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% else %>
+      <div>
+        <%= link_to 'Login', new_user_session_path %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+                <%= link_to 'Posts', posts_path%>
+      </div>
+    <% end %> 
+<% if user_signed_in? %>
+  <%= link_to 'Home', authenticated_root_path %>
+<% else %>
+  <%= link_to 'Home', unauthenticated_root_path %>
+<% end %>
+
+
     <%= yield %>
   </body>
 </html>
